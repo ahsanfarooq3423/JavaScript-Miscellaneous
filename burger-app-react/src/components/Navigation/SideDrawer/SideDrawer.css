@@ -9,30 +9,24 @@
     background-color: white;
     padding: 32px 16px;
     box-sizing: border-box;
-    transition: transform 0.3  ease-out;
+    transition: transform 0.3s ease-out;
 }
 
-/*side drawer on bigger devices are displayed none*/
-
-@media (min-width: 500px){
+@media (min-width: 500px) {
     .SideDrawer {
         display: none;
     }
 }
 
 .Open {
-    transform: translateX(0)
+    transform: translateX(0);
 }
 
 .Close {
-    transform: translateX(-100%)
+    transform: translateX(-100%);
 }
 
 .Logo {
     height: 11%;
     margin-bottom: 32px;
 }
-
-
-
-
