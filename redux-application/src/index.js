@@ -16,6 +16,14 @@ const rootReducer = combineReducers({
     res : resultReducer
 })
 
+const logger = store => {
+    return next => {
+        return action => {
+            console.log('[MIDDLEWARE] Dispatching', action)
+        }
+    }
+}
+
 const store = createStore(rootReducer);
 
 
