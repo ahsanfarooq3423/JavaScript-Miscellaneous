@@ -5,7 +5,7 @@ import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
 
 
-import * as actionCreaters from '../../store/actions/actions';
+import * as actionCreaters from '../../store/actions/index';
 
 
 class Counter extends Component {
