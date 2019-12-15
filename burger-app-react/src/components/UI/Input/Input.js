@@ -17,7 +17,7 @@ const input = (props) => {
             inputElement = <input 
                 className = {inputClasses.join(" ")} 
                  {...props.elementConfig} 
-                 defaultvalue = {props.value}
+                 defaultValue = {props.value}
                  onChange = {props.changed}/>
             break;
 
@@ -25,7 +25,7 @@ const input = (props) => {
             inputElement = <textarea  
                 className = {inputClasses.join(" ")} 
                 {...props.elementConfig} 
-                defaultvalue = {props.value} 
+                defaultValue = {props.value} 
                 onChange = {props.changed}/>    
             break;
 
