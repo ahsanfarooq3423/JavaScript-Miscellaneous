@@ -114,7 +114,6 @@ class ContactData extends Component {
             orderData : formData
             
         }
-
         this.props.onOrderBurger(order);
         
     }
