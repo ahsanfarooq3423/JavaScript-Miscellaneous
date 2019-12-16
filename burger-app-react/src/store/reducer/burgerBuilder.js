@@ -5,7 +5,8 @@ const initialState = {
     ingredients : null,
     totalPrice : 4,
     error : false,
-    builder : false
+    building : false,
+
 }
 
 const INGREDIENT_PRICES = {
