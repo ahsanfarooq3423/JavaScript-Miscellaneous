@@ -1,10 +1,17 @@
-import React, {useState, useEffect, useReducer} from 'react';
+import React, { useState , useEffect, useReducer, useRef, useMemo} from 'react';
 import axios from 'axios';
+import List from './List';
+import { useFormInput } from '../hooks/forms';
 
 const todo = props => {
-    const [todoName, setTodoName] = useState('');
-    const [submittedTodo, setSubmittedTodo] = useState(null);
+    const [inputIsValid, setInputIsValid] = useState(false);
+    //const [todoName, setTodoName] = useState('');
+    //const [submittedTodo, setSubmittedTodo] = useState(null);
     //const [todoList, setTodoList] = useState([]);
+
+    // const todoInputRef = useRef();
+
+    const todoInput = useFormInput();
 
     const todoListReducer = (state, action) => {
         switch(action.type) {
@@ -42,31 +49,40 @@ const todo = props => {
         console.log(event.clientX, event.clientY)
     }
 
-
-
-    useEffect(() => {
-        document.addEventListener('mouseover',mouseMoveHandler)
-        return () => {
-            document.removeEventListener('mouseover', mouseMoveHandler)
+    const inputValidationHandler = event => {
+        if (event.target.value.trim() === ""){
+            setInputIsValid(false);
+        } else {
+            setInputIsValid(true);
         }
-    },[])
-
-    useEffect(() => {
-        if (submittedTodo){
-            dispatch({type : 'ADD', payload : submittedTodo})
-        }
-    }, [submittedTodo])
-
-    const inputChangeHandler = (event) => {
-        setTodoName(event.target.value)
     }
 
+
+    // useEffect(() => {
+    //     document.addEventListener('mouseover',mouseMoveHandler)
+    //     return () => {
+    //         document.removeEventListener('mouseover', mouseMoveHandler)
+    //     }
+    // },[])
+
+    // useEffect(() => {
+    //     if (submittedTodo){
+    //         dispatch({type : 'ADD', payload : submittedTodo})
+    //     }
+    // }, [submittedTodo])
+
+    // const inputChangeHandler = (event) => {
+    //     setTodoName(event.target.value)
+    // }
+
     const todoAddHandler = () => {
+        const todoName = todoInput.value;
+
          axios.post('https://test-38c9e.firebaseio.com/todos.json',{name : todoName})
             .then(res => {
                 setTimeout(()=> {
                     const todoItem = {id : res.data.name, name : todoName}
-                    setSubmittedTodo(todoItem);
+                    dispatch({type : 'ADD', payload : todoItem})
                 }, 3000);
             })
             .catch(err => {
@@ -87,15 +103,12 @@ const todo = props => {
             <input 
                 type = 'text' 
                 placeholder = 'Todo'
-                value = {todoName.name}
-                onChange = {inputChangeHandler} />
+                onChange = {todoInput.onChange}
+                value = {todoInput.value}   
+                style = {{background : todoInput.validity === true ? 'transparent': 'red'}}
+                />
             <button type = "button" onClick = {todoAddHandler} >Add</button>
-            <ul>
-                {todoList.map(todo => 
-                    <li 
-                        onClick = {todoRemoveHanlder.bind(this, todo.id)}
-                        key = {todo.id}>{todo.name}</li>)}
-            </ul>
+            {useMemo(()=>(<List items = {todoList} onClick = {todoRemoveHanlder}/>), [todoList] ) }
         </React.Fragment>
     )
    
