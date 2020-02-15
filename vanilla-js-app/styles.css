@@ -1,0 +1,57 @@
+body {
+    background-color: rgb(106, 154, 243);
+}
+
+.main {
+    margin: auto;
+    margin-top: 5%;
+    text-align: center;
+    width: 70%;
+}
+
+h2 {
+    color: white;
+    font-size: 40px;
+}
+
+.input-custom {
+    margin: auto;
+    width: 30%;
+}
+
+.add-custom {
+    background-color: rgb(15, 180, 15);
+    border: none;
+    color: white;
+    
+}
+
+.add-custom:hover {
+    cursor: pointer;
+    background-color: rgb(12, 143, 12) ;
+}
+
+.list {
+
+    display: flex;
+    margin: auto;
+    width: 40%;
+    background-color: white;
+    height: 70px;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 1px -1px 3px 0px rgba(0,0,0,0.75);
+
+}
+
+.list .item {
+    margin-left: 20px;
+}
+
+.trash {
+    width: 30px;
+    height: 30px;
+    margin-left: 50%;
+
+}
