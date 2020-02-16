@@ -1,5 +1,6 @@
 const User = require('../models/User'); 
 const bcrypt = require('bcryptjs');
+const passport = require('passport');
 
 exports.getLogin = (req, res, next) => {
     res.render('login')
@@ -57,8 +58,9 @@ exports.postSignup = (req, res, next) => {
                             return user.save()
                         })
                         .then(response => {
-                            console.log('The user has been saved!')
-                            res.send('Got it in the database')
+                            console.log('The user has been saved!');
+                            req.flash('success_msg','You are now register and can login') 
+                            res.redirect('/login')
                         })
                         .catch(err => console.log(err ))
                 }
@@ -66,3 +68,19 @@ exports.postSignup = (req, res, next) => {
     }
 
 }
+
+exports.postLogin = (req, res, next) => {
+    passport.authenticate('local',{
+        successRedirect : '/dashboard',
+        failureRedirect : '/login',
+        failureFlash : true
+    })(req, res, next)
+}
+
+
+exports.getLogout = (req, res, next) => {
+    req.logout();
+    req.flash('success_msg', 'You are logout');
+    res.redirect('/login')
+}
+
