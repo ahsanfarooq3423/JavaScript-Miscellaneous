@@ -66,7 +66,6 @@ exports.postSignup = (req, res, next) => {
                 }
             })
     }
-
 }
 
 exports.postLogin = (req, res, next) => {
@@ -83,4 +82,5 @@ exports.getLogout = (req, res, next) => {
     req.flash('success_msg', 'You are logout');
     res.redirect('/login')
 }
+
 
