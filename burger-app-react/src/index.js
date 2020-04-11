@@ -13,7 +13,7 @@ import authReducer from './store/reducer/auth';
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
 
-import { watchAuth } from './store/sagas/index';
+import { watchAuth, watchBurgerBuilder } from './store/sagas/index';
 
 const composeEnhancers = process.env.NODE_ENV === "development" ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
@@ -29,6 +29,8 @@ const store = createStore(rootReducer, composeEnhancers(
     applyMiddleware(thunk, sagaMiddleware)
 ));
 
+
+sagaMiddleware.run(watchBurgerBuilder);
 sagaMiddleware.run(watchAuth);
 
 const app = (
