@@ -1,35 +1,52 @@
-import React, { useState } from 'react';
-import Todo from './components/Todo';
-import Header from './components/Header';
-import Auth from './components/Auth';
-import AuthContext from './auth-context';
+import React from 'react';
 
-const app = props => {
-  const [page, setPage] = useState('auth');
-  const [authState, setAuthState] = useState(false);
-  
-  const switchPage = pageName => {
-    setPage(pageName)
+
+class App extends React.Component {
+
+  chatThreadRef = React.createRef()
+
+  state = {
+    name : 'Ahsan Farooq',
+    title : 'google autum sdf'
   }
 
-  const login = () => {
-    setAuthState(true);
+  static getDerivedStateFromProps (props, state) {
+    console.log('Get derived state called')
+    return {
+      name : 'Hamza Ali'
+    }
   }
-  
-  return(
-    <div className="App">
-      <AuthContext.Provider value = {{status : authState, login : login}}>
-      <Header
-        onLoadTodos = {switchPage.bind(this, 'todos')}
-        onLoadAuth = {switchPage.bind(this, 'auth')}
-      />
-      <hr/>
-      {page === 'auth' ? <Auth/> : <Todo/>}
-      </AuthContext.Provider>
-    </div>
-  )
-    
-};
 
 
-export default app;
+
+  componentDidMount() {
+    console.log('Component did mount called')
+    fetch('https://jsonplaceholder.typicode.com/todos/1')
+    .then(response => response.json())
+    .then(json => this.setState({title : json.title}))
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log(nextProps, nextState)
+    if (this.state.title !== nextState.title) {
+      return true;
+    }
+  }
+
+  // getSnapshotBeforeUpdate(prevProps, prevState) {
+  //   console.log(prevProps, prevState)
+  // }
+
+  render() {
+    console.log('Render called with ', this.state.title)
+    return (
+      <div ref = {this.chatThreadRef} >
+        <h1 >{this.state.name}</h1>
+    <p>{this.state.title}</p>
+      </div>
+    )
+  }
+}
+
+
+export default App;
